@@ -1,8 +1,8 @@
 'use strict';
 
-// Data needed for a later exercise
-const flights =
-  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+// // Data needed for a later exercise
+// const flights =
+//   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
 // Data needed for first part of the section
 const restaurant = {
@@ -14,6 +14,18 @@ const restaurant = {
 
   order: function(starterIndex, mainIndex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+
+  orderDelivery: function({ starterIndex = 1, mainIndex = 0, time = '22:00', address = 'Some Address'}) {
+    console.log(`these are the pieces of the object: ${starterIndex}, ${mainIndex}, ${time}, ${address}`);
+  },
+
+  orderPasta: function(ing1, ing2, ing3) {
+    console.log(`Ing1 ${ing1}, ing2 ${ing2}, ing3 ${ing3}`)
+  },
+
+  orderPizza: function(mainIngredient, ...otherIngredients) {
+    console.log(mainIngredient, otherIngredients);
   },
 
   openingHours: {
@@ -32,31 +44,159 @@ const restaurant = {
   },
 };
 
-const arr = [2, 3, 4];
-const [x, y, z] = arr;
-console.log(x, y, z);
+// restaurant.orderDelivery({
+//   time: '22:30',
+//   address: 'test',
+//   mainIndex: 2,
+//   starterIndex: 2,
+// })
+// // using default values 
+// restaurant.orderDelivery({
+//   mainIndex: 2,
+// })
 
-// skips 'Pizzeria' and assigns second to 'Vegetarian' instead
-let [first, ,second] = restaurant.categories;
-console.log(first, second);
+// const arr = [2, 3, 4];
+// const [x, y, z] = arr;
+// // console.log(x, y, z);
 
-// swap the variables using destructuring
-[first, second] = [second, first];
-console.log(first, second);
+// // skips 'Pizzeria' and assigns second to 'Vegetarian' instead
+// let [first, ,second] = restaurant.categories;
+// // console.log(first, second);
 
-const [starter, main] = restaurant.order(2, 0);
-console.log(starter, main);
+// // swap the variables using destructuring
+// [first, second] = [second, first];
+// // console.log(first, second);
 
-// Nested destructuring
-const nested = [2, 4, [5, 6]];
-// const [i, , j] = nested;
-// console.log(i, j);
-const [i, , [j, k]] = nested;
-console.log(i, j, k);
+// const [starter, main] = restaurant.order(2, 0);
+// // console.log(starter, main);
 
-// Default values
-const [p = 1, q = 1, r = 1] = [8, 9];
-console.log(p, q, r)
+// // Nested destructuring
+// const nested = [2, 4, [5, 6]];
+// // const [i, , j] = nested;
+// // console.log(i, j);
+// const [i, , [j, k]] = nested;
+// // console.log(i, j, k);
+
+// // Default values
+// const [p = 1, q = 1, r = 1] = [8, 9];
+// // console.log(p, q, r);
+
+// ///////////////////////////////////////
+// // Object Destructuring
+// const {name, openingHours, categories} = restaurant;
+// // console.log(name, openingHours, categories);
+
+// const {
+//   name: restaurantName,
+//   openingHours: hours,
+//   categories: tags
+// } = restaurant;
+
+// const {
+//   menu = [],
+//   starterMenu: starters = []
+// } = restaurant;
+// // console.log(menu, starters)
+
+// let a = 111;
+// let b = 999;
+// const obj = { a: 23, b: 7, c: 14 };
+
+// ({a, b} = obj);
+// // console.log(a, b);
+
+// // Nested Objects
+// const {
+//   fri: { open, close }
+// } = openingHours;
+// // console.log(open, close);
+
+// ///////////////////////////////////////
+// // Spread Operator
+// // old way of copying an array
+// const arr2 = [4, 5, 6];
+// const badNewArr = [1, 2, 3, arr2[0], arr2[1], arr2[2]];
+// // console.log('bad copy', badNewArr);
+
+// //using spread operator
+// const newArr = [1, 2, 3, ...arr2];
+// // console.log('spread', newArr)
+
+// //copy array
+// const mainMenuCopy = [...restaurant.mainMenu];
+
+// //join 2 arrays
+// const fullMenu = [...restaurant.mainMenu, ...restaurant.starterMenu];
+// // console.log(fullMenu)
+
+// const str = 'Jonas';
+// const letters = [...str, ' ', 'S.'];
+// // console.log(letters);
+// // console.log(...str);
+
+// const ingredients = [
+//   // prompt('Let\'s make pasta! ingredient 1?'),
+//   // prompt('ingredient 2'),
+//   // prompt('ingredient 3'),
+// ]
+// console.log(ingredients);
+
+// restaurant.orderPasta(...ingredients);
+
+// const newRestaurant = {
+//   foundedIn: 1998,
+//   ...restaurant,
+//   founder: 'Linguinie'
+// }
+
+// const restaurantCopy = { ...restaurant }
+// restaurantCopy.name = 'New Name';
+
+// console.log(restaurant.name);
+// console.log(newRestaurant.name)
+// console.log(restaurantCopy.name)
+
+
+///////////////////////////////////////
+// Rest Pattern and Paramters
+
+// 1 Destructuring
+//spread, because on RIGHT side of =
+  const arr3 = [1, 2, ...[3, 4]];
+
+// REST, because on LEFT side of =
+const [a, b, ...others] = [1, 2, 3, 4, 5];
+// console.log(a, b, others);
+
+// uising rest with spread operator
+const [pizza, , risotto, ...otherFood] = [...restaurant.mainMenu, ...restaurant.starterMenu];
+// console.log(pizza, risotto, otherFood);
+
+//rest with objects
+const { sat, ...weekdays } = restaurant.openingHours;
+// console.log(weekdays);
+
+// 2 Functions
+
+// using REST to allow any amount of parameters to the function
+const add = function(...numbers) {
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+  console.log(sum);
+}
+
+add(2, 3);
+add(5, 3, 7);
+add(1, 2, 3, 4,5);
+
+// using spread operator with the add function to unpack the x array
+const x = [23, 5, 7];
+add(...x);
+
+restaurant.orderPizza('peparoni', 'onions', 'tomato', 'sausage');
+restaurant.orderPizza('pepperoni');
 
 ///////////////////////////////////////
 // Destructuring Arrays Assignment
@@ -246,21 +386,21 @@ const books = [
 
 // 1. Destructure the books array into two variables called firstBook and secondBook.
 const [firstBook, secondBook] = books;
-console.log(firstBook, secondBook);
+// console.log(firstBook, secondBook);
 
 //2. Destructure the books array into a variable called thirdBook. You must skip the first two books.
 const [, , thirdBook] = books;
-console.log(thirdBook);
+// console.log(thirdBook);
 
 // 3. Below is the nested ratings array that contains two other arrays. Destructure the nested ratings arrays into two variables 
 // called rating and ratingsCount. In the result of your destructuring, the ratings variable should store a number 4.19, 
 // and the ratingsCount variable should store a number 144584.
 const ratings = [['rating', 4.19], ['ratingsCount', 144584]];
 const [[, rating], [, ratingsCount]] = ratings;
-console.log(rating, ratingsCount);
+// console.log(rating, ratingsCount);
 
 // 4. Below is the ratingStars array. Destructure it into three variables called fiveStarRatings, oneStarRatings
 // and threeStarRatings. Assign the threeStarRatings variable with a default value of 0.
 const ratingStars = [63405, 1808];
 const [fiveStarRatings = 0, oneStarRatings = 0, threeStarRatings = 0] = ratingStars;
-console.log(fiveStarRatings, oneStarRatings, threeStarRatings);
+// console.log(fiveStarRatings, oneStarRatings, threeStarRatings)
