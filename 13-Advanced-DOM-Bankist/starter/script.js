@@ -96,3 +96,23 @@ btnScrollTo.addEventListener('click', (e) => {
 })
 
 
+///////////////////////////////////////
+// Types of Events and Event Handlers
+
+/*
+const h1 = document.querySelector('h1');
+
+const alertH1 = function (e) {
+  alert('addEventListener: Great! You are reading the heading :D');
+};
+
+// more modern way of listening for events in vanila JS
+h1.addEventListener('mouseenter', alertH1);
+
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000)
+
+// old way of handling events
+// h1.onmouseenter = function (e) {
+//   alert('onmouseenter: Great! You are reading the heading :D');
+// }
+*/
